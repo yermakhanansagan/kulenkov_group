@@ -51,6 +51,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
+
+
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -61,6 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -86,11 +89,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 color1: first_color,
                 color2: second_color,
                 textColor: white,
-              ),
+                ),
             ),
             Expanded(
               child: OutlinedActionButton(
                 title: "Button",
+                textColor: red,
                 borderSize: 1.0,
               ),
             ),
