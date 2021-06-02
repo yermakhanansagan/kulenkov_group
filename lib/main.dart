@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kulenkov_group/components/action_button.dart';
-import 'package:kulenkov_group/components/outlined_action_button.dart';
 import 'package:kulenkov_group/constants/colors.dart';
 
 void main() {
@@ -51,8 +50,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-
-
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -63,7 +60,6 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -84,18 +80,24 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Row(
           children: [
             Expanded(
+                child: ActionButton(
+              labelText: "Button",
+              isOutlined: true,
+              color: red,
+              borderSize: 1,
+            )),
+            Expanded(
               child: ActionButton(
-                title: "Button",
-                color1: first_color,
-                color2: second_color,
-                textColor: white,
-                ),
+                labelText: "Button",
+                isGradient: true,
+                gradientColor1: first_color,
+                gradientColor2: second_color,
+              ),
             ),
             Expanded(
-              child: OutlinedActionButton(
-                title: "Button",
-                textColor: red,
-                borderSize: 1.0,
+              child: ActionButton(
+                labelText: "Button",
+                color: green,
               ),
             ),
           ],
