@@ -4,12 +4,12 @@ import 'package:kulenkov_group/constants/colors.dart';
 
 class ActionButton extends StatelessWidget {
   final String labelText; // label text
-  final bool isGradient; //
-  final bool isOutlined; //
-  final int color; //
-  final int gradientColor1;
-  final int gradientColor2;
-  final double borderSize;
+  final bool isGradient; // если button gradient отметить true
+  final bool isOutlined; // простой button
+  final int color; // default color если грдиент то можно не писать
+  final int gradientColor1; // isGradient = true
+  final int gradientColor2; // isGradient = true
+  final double borderSize; // isOutlined = true
   final Function onPressed;
 
   const ActionButton(
