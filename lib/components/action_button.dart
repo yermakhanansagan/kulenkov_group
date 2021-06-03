@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:kulenkov_group/constants/colors.dart';
 
 class ActionButton extends StatelessWidget {
+  // если кнопка обыччная можно ничего не отмечать true
   final String labelText; // label text
-  final bool isGradient; // если button gradient отметить true
-  final bool isOutlined; // если нужен Outline Button
+  final bool isGradient; // если button gradient отметить true по дефолту false
+  final bool isOutlined; // если нужен Outline Button по дефолту false
   final int color; // default color если грдиент то можно не писать
   final int gradientColor1; // isGradient = true
   final int gradientColor2; // isGradient = true
@@ -29,7 +30,7 @@ class ActionButton extends StatelessWidget {
     // TODO: implement build
     return SizedBox.expand(
       child: isOutlined
-          ? OutlinedButton(
+          ? OutlinedButton( // если
             onPressed: () {},
             child: Text(
               labelText,

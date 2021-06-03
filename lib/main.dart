@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kulenkov_group/components/action_button.dart';
+import 'package:kulenkov_group/components/custom_dialog.dart';
+import 'package:kulenkov_group/components/custom_dialog_list.dart';
 import 'package:kulenkov_group/constants/colors.dart';
 
 void main() {
@@ -75,35 +77,79 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Container(
-        height: 48,
-        child: Row(
-          children: [
-            Expanded(
-                child: ActionButton(
-              labelText: "Button",
-              isOutlined: true,
-              color: red,
-              borderSize: 1,
-            )),
-            Expanded(
-              child: ActionButton(
-                labelText: "Button",
-                isGradient: true,
-                gradientColor1: first_color,
-                gradientColor2: second_color,
-              ),
-            ),
-            Expanded(
-              child: ActionButton(
-                labelText: "Button",
-                color: green,
-              ),
-            ),
-          ],
-        ),
+      body: Column(
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              return showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return CustomDialogList(
+                    shop: new Shop("Магазин Автореальность", 3.5, 126, details),
+                  );
+                },
+              );
+            },
+          ),
+          ElevatedButton(
+            onPressed: () {
+              return showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return CustomDialog(
+                    title: "Title",
+                    message: "random message",
+                  );
+                },
+              );
+            },
+          ),
+          ElevatedButton(
+            onPressed: () {
+              return showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return CustomDialog(
+                    title: "Title",
+                    withImage: true,
+                    imagePath: "assets/Group.png",
+                    message: "message",
+                  );
+                },
+              );
+            },
+          ),
+          ElevatedButton(
+            onPressed: () {
+              return showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return CustomDialog(
+                    title: "Title",
+                    withImage: true,
+                    imagePath: "assets/Group.png",
+                    message: "message",
+                    withButton: true,
+                    actionButton: ActionButton(
+                      color: green,
+                      labelText: "Text",
+                    ),
+                  );
+                },
+              );
+            },
+          ),
+
+        ],
       ),
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
+// dummy data для custom dialog list
+List<Detail> details = [
+  Detail(
+      "Двигатель немецкого производства", "Оригинал, новый, под заказ", 125000),
+  Detail("Двигатель африканского производства", "Оригинал, новый, под заказ",
+      125000)
+];
