@@ -36,86 +36,109 @@ class _CustomDialogListState extends State<CustomDialogList> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: Colors.transparent,
       content: Column(
         children: [
-          Text(
-            widget.shop.shopName,
-            textAlign: TextAlign.center,
-          ),
-          Row( // парт со звездочками
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              RatingBar( // https://pub.dev/packages/flutter_rating_bar
-
-                direction: Axis.horizontal,
-                allowHalfRating: true,
-                initialRating: widget.shop.shopRating,
-                itemCount: 5,
-                itemSize: 12,
-                itemPadding: EdgeInsets.symmetric(horizontal: 2.5),
-                ignoreGestures: true,
-                ratingWidget: RatingWidget(
-                  empty: Image.asset("assets/Vector-2.png"),
-                  half: Image.asset("assets/Vector-1.png"),
-                  full: Image.asset("assets/Vector.png"),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: (BorderRadius.circular(6)),
+              color: Color(white),
+            ),
+            padding: EdgeInsets.only(top: 30, bottom: 20, left: 12, right: 12),
+            child: Column(
+              children: [
+                Text(
+                  widget.shop.shopName,
+                  textAlign: TextAlign.center,
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 7.5),
-                child: Text("(${widget.shop.reviewQuantity})"),
-              ),
-            ],
-          ),
-          Container(  // кнопка написать
-            margin: EdgeInsets.symmetric(vertical: 16),
-            height: 36,
-            width: 304,
-            child: ActionButton(
-              labelText: "Write",
-              color: green,
+                Row( // парт со звездочками
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    RatingBar( // https://pub.dev/packages/flutter_rating_bar
+
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      initialRating: widget.shop.shopRating,
+                      itemCount: 5,
+                      itemSize: 12,
+                      itemPadding: EdgeInsets.symmetric(horizontal: 2.5),
+                      ignoreGestures: true,
+                      ratingWidget: RatingWidget(
+                        empty: Image.asset("assets/Vector-2.png"),
+                        half: Image.asset("assets/Vector-1.png"),
+                        full: Image.asset("assets/Vector.png"),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 7.5),
+                      child: Text("(${widget.shop.reviewQuantity})"),
+                    ),
+                  ],
+                ),
+                Container(  // кнопка написать
+                  margin: EdgeInsets.symmetric(vertical: 16),
+                  height: 36,
+                  width: 304,
+                  child: ActionButton(
+                    labelText: "Write",
+                    color: green,
+                  ),
+                ),
+                Container(
+                  child: Text(widget.shop.offerDetails.length.toString() + " offers:"),
+                ),
+                ListView.builder( // детали которые в предложений
+                  shrinkWrap: true,
+                  itemCount: widget.shop.offerDetails.length,
+                  itemBuilder: (context, index) {
+                    final detailItem = widget.shop.offerDetails[index];
+                    return Column(
+                      children: [
+                        Divider(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(detailItem.detailName),
+                            ),
+                            Text(detailItem.price.toString() + " T")
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 2.0),
+                          child: Align(
+                            child: Text(
+                              detailItem.detailDescription,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 36,
+                          width: 304,
+                          child: ActionButton(
+                            labelText: "Choose",
+                            isGradient: true,
+                            gradientColor1: first_color,
+                            gradientColor2: second_color,
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ],
             ),
           ),
-          Container(
-            child: Text(widget.shop.offerDetails.length.toString() + " offers:"),
+          SizedBox(
+            height: 20,
           ),
-          ListView.builder( // детали которые в предложений
-            shrinkWrap: true,
-            itemCount: widget.shop.offerDetails.length,
-            itemBuilder: (context, index) {
-              final detailItem = widget.shop.offerDetails[index];
-              return Column(
-                children: [
-                  Divider(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(detailItem.detailName),
-                      ),
-                      Text(detailItem.price.toString() + " T")
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 2.0),
-                    child: Align(
-                      child: Text(
-                        detailItem.detailDescription,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 36,
-                    width: 304,
-                    child: ActionButton(
-                      labelText: "Choose",
-                      isGradient: true,
-                      gradientColor1: first_color,
-                      gradientColor2: second_color,
-                    ),
-                  ),
-                ],
-              );
-            },
+          Align(
+            alignment: FractionalOffset.bottomCenter,
+            child: FloatingActionButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
           ),
         ],
       ),

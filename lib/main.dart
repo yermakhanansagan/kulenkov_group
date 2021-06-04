@@ -98,6 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 builder: (BuildContext context) {
                   return CustomDialog(
                     title: "Title",
+                    withMessage: true,
                     message: "random message",
                   );
                 },
@@ -113,6 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     title: "Title",
                     withImage: true,
                     imagePath: "assets/Group.png",
+                    withMessage: true,
                     message: "message",
                   );
                 },
@@ -128,6 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     title: "Title",
                     withImage: true,
                     imagePath: "assets/Group.png",
+                    withMessage: true,
                     message: "message",
                     withButton: true,
                     actionButton: ActionButton(
@@ -139,13 +142,13 @@ class _MyHomePageState extends State<MyHomePage> {
               );
             },
           ),
-
         ],
       ),
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
+
 // dummy data для custom dialog list
 List<Detail> details = [
   Detail(
