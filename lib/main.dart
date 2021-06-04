@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kulenkov_group/components/action_button.dart';
 import 'package:kulenkov_group/components/custom_dialog.dart';
-import 'package:kulenkov_group/components/custom_dialog_list.dart';
+import 'package:kulenkov_group/components/dialogs/default_dialog_content.dart';
 import 'package:kulenkov_group/constants/colors.dart';
+import 'components/dialogs/dialog_content_with_list.dart';
 
 void main() {
   runApp(MyApp());
@@ -84,8 +84,12 @@ class _MyHomePageState extends State<MyHomePage> {
               return showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return CustomDialogList(
-                    shop: new Shop("Магазин Автореальность", 3.5, 126, details),
+                  return CustomDialog(
+                    defaultDialogContent: DefaultDialogContent(
+                      title: "Title",
+                      withMessage: true,
+                      message: "Random Message",
+                    ),
                   );
                 },
               );
@@ -97,45 +101,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 context: context,
                 builder: (BuildContext context) {
                   return CustomDialog(
-                    title: "Title",
-                    withMessage: true,
-                    message: "random message",
-                  );
-                },
-              );
-            },
-          ),
-          ElevatedButton(
-            onPressed: () {
-              return showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return CustomDialog(
-                    title: "Title",
-                    withImage: true,
-                    imagePath: "assets/Group.png",
-                    withMessage: true,
-                    message: "message",
-                  );
-                },
-              );
-            },
-          ),
-          ElevatedButton(
-            onPressed: () {
-              return showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return CustomDialog(
-                    title: "Title",
-                    withImage: true,
-                    imagePath: "assets/Group.png",
-                    withMessage: true,
-                    message: "message",
-                    withButton: true,
-                    actionButton: ActionButton(
-                      color: green,
-                      labelText: "Text",
+                    withList: true,
+                    dialogContentWithList: DialogContentWithList(
+                      shop: shop,
                     ),
                   );
                 },
@@ -150,6 +118,8 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 // dummy data для custom dialog list
+Shop shop = new Shop("Магазин Автореальность", 3.5, 126, details);
+
 List<Detail> details = [
   Detail(
       "Двигатель немецкого производства", "Оригинал, новый, под заказ", 125000),

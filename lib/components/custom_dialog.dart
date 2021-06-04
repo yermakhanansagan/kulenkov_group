@@ -1,33 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-
-import 'package:kulenkov_group/components/action_button.dart';
-import 'package:kulenkov_group/components/alert_dialog_close_button.dart';
+import 'package:kulenkov_group/components/dialogs/default_dialog_content.dart';
+import 'package:kulenkov_group/components/dialogs/dialog_content_with_list.dart';
 import 'package:kulenkov_group/constants/colors.dart';
 
-// обычные диалоги
+import 'alert_dialog_close_button.dart';
+
 class CustomDialog extends StatefulWidget {
-  final String imagePath;
-  final bool withImage; //если есть картинка в диалоге  по дефолту false
-  final String title; // титул сообщения
-  final bool withMessage;
-  final String message; //сообщение диалога
-  final bool withButton; // если есть кнопка по дефолту false
-  final bool with2Buttons; // ксли две кнопки по дефолту false
-  final ActionButton actionButton; // передаем нашу кастомную кнопку
-  final ActionButton secondActionButton; // на тот случай если есть две кнопки
+  final bool withList; // true if use with List for shop details by default false
+  final DefaultDialogContent defaultDialogContent;
+  final DialogContentWithList dialogContentWithList;
 
   const CustomDialog({
     Key key,
-    this.imagePath,
-    this.withImage = false,
-    this.title,
-    this.withMessage = false,
-    this.message,
-    this.withButton = false,
-    this.actionButton,
-    this.with2Buttons = false,
-    this.secondActionButton,
+    this.withList = false,
+    this.dialogContentWithList,
+    this.defaultDialogContent,
   }) : super(key: key);
 
   @override
@@ -37,61 +24,23 @@ class CustomDialog extends StatefulWidget {
 class _CustomDialogState extends State<CustomDialog> {
   @override
   Widget build(BuildContext context) {
+    // color transparent to show overlay button
     return AlertDialog(
-      contentPadding: EdgeInsets.symmetric(vertical: 16),
-      // добавлял кнопку закрыть. сделал сам диалог транспарент color и контент column
+      contentPadding: EdgeInsets.only(bottom: 30),
       backgroundColor: Colors.transparent,
       content: Column(
         children: [
           Container(
+            // color white
+            padding: EdgeInsets.only(top: 30, bottom: 20, left: 12, right: 12),
             decoration: BoxDecoration(
               borderRadius: (BorderRadius.circular(6)),
               color: Color(white),
             ),
-            padding: EdgeInsets.only(top: 30, bottom: 20, left: 12, right: 12),
-            child: Column(
-              children: [
-                // здесь и даллее если есть картинка то картинка если нет то пустой контейнер
-                widget.withImage
-                    ? Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: Image.asset(widget.imagePath),
-                      )
-                    : Container(),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: Text(widget.title),
-                ),
-                widget.withMessage ? Text(widget.message) : Container(),
-                widget.withButton
-                    ? Container(
-                        margin: EdgeInsets.only(top: 16),
-                        width: 304,
-                        height: 36,
-                        child: widget.actionButton,
-                      )
-                    : Container(),
-                widget.with2Buttons
-                    ? Container(
-                        margin: EdgeInsets.only(top: 16),
-                        width: 304,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              height: 36,
-                              child: widget.actionButton,
-                            ),
-                            Container(
-                              height: 36,
-                              child: widget.secondActionButton,
-                            ),
-                          ],
-                        ),
-                      )
-                    : Container(),
-              ],
-            ),
+            child: widget.withList
+                ? widget.dialogContentWithList
+                : widget.defaultDialogContent,
+
           ),
           SizedBox(
             height: 20,
